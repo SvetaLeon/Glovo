@@ -34,12 +34,11 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public void update(Integer id, Order updatedOrderData) {
-        for (Order result : listOfOrders) {
-            if (id.equals(result.getId())) {
-                listOfOrders.remove(result);
-                listOfOrders.add(updatedOrderData);
-            }
-        }
+        listOfOrders.stream().filter(result -> id.equals(result.getId())).forEach(result -> {
+            result.setCost(updatedOrderData.getCost());
+            result.setDate(updatedOrderData.getDate());
+            result.setProducts(updatedOrderData.getProducts());
+        });
     }
 
     @Override
